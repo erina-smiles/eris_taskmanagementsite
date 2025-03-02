@@ -3,35 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Manager</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Task Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { max-width: 400px; margin: auto; }
+        ul { list-style-type: none; padding: 0; }
+        li { padding: 10px; background: #f4f4f4; margin: 5px; display: flex; justify-content: space-between; }
+        button { margin: 5px; }
+    </style>
 </head>
 <body>
-
+    <h1 id="title">Task Management</h1>
+    <button onclick="switchLanguage()">Switch to Tamil</button>
     <div class="container">
-        <h1>Smile's Task Manager ✅</h1>
-        <p class="quote">"You don’t have to be great to start, but you have to start to be great, <strong>SO START PLANNING!</strong>"</p>
-
-        <!-- Task Input -->
-        <div class="task-input">
-            <input type="text" id="task" placeholder="Enter a new task...">
-            <select id="task-category">
-                <option value="General">General</option>
-                <option value="Work">Work</option>
-                <option value="Personal">Personal</option>
-                <option value="Health">Health</option>
-                <option value="Passion">Passion</option>
-            </select>
-            <button id="addTaskBtn">Add Task</button>
-        </div>
-
-        <!-- Task List -->
+        <input type="text" id="taskInput" placeholder="Enter a task">
+        <button onclick="addTask()">Add Task</button>
         <ul id="taskList"></ul>
-
-        <!-- Dark Mode Toggle -->
-        <button id="darkModeToggle">Toggle Dark Mode 🌙</button>
+        <button id="undoButton" onclick="undoDelete()" disabled>Undo</button>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        let deletedTask = null;
+        let deletedIndex = null;
+        let tasks = [];
+        let currentLanguage = 'en';
+        
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskText = taskInput.value.trim();
+            if (taskText === "") return;
+            
+            tasks.push(taskText);
+            renderTasks();
+            taskInput.value = "";
+        }
+        
+        function deleteTask(index) {
+            deletedTask = tasks[index];
+            deletedIndex = index;
+            tasks.splice(index, 1);
+            renderTasks();
+            document.getElementById("undoButton").disabled = false;
+        }
+        
+        function undoDelete() {
+            if (deletedTask !== null) {
+                tasks.splice(deletedIndex, 0, deletedTask);
+                renderTasks();
+                deletedTask = null;
+                deletedIndex = null;
+                document.getElementById("undoButton").disabled = true;
+            }
+        }
+        
+        function renderTasks() {
+            let taskList = document.getElementById("taskList");
+            taskList.innerHTML = "";
+            tasks.forEach((task, index) => {
+                let li = document.createElement("li");
+                li.innerHTML = `<span>${task}</span> <button onclick="deleteTask(${index})">Delete</button>`;
+                taskList.appendChild(li);
+            });
+        }
+        
+        function switchLanguage() {
+            let translations = {
+                'en': { title: "Task Management", placeholder: "Enter a task", add: "Add Task", undo: "Undo", delete: "Delete", switch: "Switch to Tamil" },
+                'ta': { title: "பணி மேலாண்மை", placeholder: "ஒரு பணியை உள்ளிடவும்", add: "சேர்க்க", undo: "மீட்டமை", delete: "நீக்கு", switch: "ஆங்கிலத்திற்குத் மாற்றவும்" }
+            };
+            
+            currentLanguage = currentLanguage === 'en' ? 'ta' : 'en';
+            
+            document.getElementById("title").innerText = translations[currentLanguage].title;
+            document.getElementById("taskInput").placeholder = translations[currentLanguage].placeholder;
+            document.querySelector("button[onclick='addTask()']").innerText = translations[currentLanguage].add;
+            document.getElementById("undoButton").innerText = translations[currentLanguage].undo;
+            document.querySelectorAll("button[onclick^='deleteTask']").forEach(btn => btn.innerText = translations[currentLanguage].delete);
+            document.querySelector("button[onclick='switchLanguage()']").innerText = translations[currentLanguage].switch;
+        }
+    </script>
 </body>
 </html>
+
