@@ -1,0 +1,113 @@
+/* General Styling */
+body {
+    font-family: 'Georgia', serif; /* Elegant serif font */
+    background-color: #f8e8e8; /* Soft pink background */
+    color: #5a3e36; /* Warm brown text */
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+.container {
+    width: 50%;
+    margin: auto;
+    background: #fffaf0; /* Creamy soft background */
+    padding: 20px;
+    margin-top: 50px;
+    box-shadow: 0px 0px 10px rgba(90, 62, 54, 0.1);
+    border-radius: 12px;
+    border: 2px solid #d1a7a0; /* Soft brown-pink border */
+}
+
+/* Header */
+h1 {
+    color: #b07b69; /* Warm brown */
+    font-weight: bold;
+    font-size: 26px;
+}
+
+/* Quote Styling */
+.quote {
+    font-style: italic;
+    color: #8d5c51; /* Muted brown */
+    font-size: 14px;
+    margin-bottom: 15px;
+    background: #f3d8d2;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* Input and Buttons */
+.task-input {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input, select, button {
+    padding: 10px;
+    border: 1px solid #c69c91;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* Button Styling */
+button {
+    background-color: #d8a7a0; /* Soft pink */
+    color: white;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #b07b69; /* Deeper warm brown */
+}
+
+/* Task List */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background: #f6e3e1; /* Soft pink shade */
+    padding: 12px;
+    margin: 5px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Completed Task */
+.completed {
+    text-decoration: line-through;
+    color: #8d5c51; /* Muted brown */
+}
+
+/* Dark Mode */
+#darkModeToggle {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background: #5a3e36; /* Dark brown */
+    color: white;
+    border-radius: 8px;
+}
+
+.dark-mode {
+    background-color: #3b2a26; /* Deep brown */
+    color: white;
+}
+
+.dark-mode .container {
+    background-color: #5a3e36; /* Richer brown */
+}
+
+.dark-mode li {
+    background-color: #8d5c51; /* Soft muted brown */
+}
+
